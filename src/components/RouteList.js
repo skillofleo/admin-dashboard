@@ -4,18 +4,13 @@ import { Route, Redirect } from "react-router-dom";
 import { RouteList } from "../Stores/AppStore";
 import { GlobalContext } from "../contexts/GlobalContext";
 
-// export  const Routes = RouteList.map(({ component, path, exact }, key) => {
-//     return <Route exact={exact} path={path} component={component} key={key} />;
-//   });
-
 const Routes = () => {
  
-  // const [isAuth, setIsAuth] = useState(false)
-  const context = useContext(GlobalContext)
-  console.log(context);
+  const {state} = useContext(GlobalContext)
+  
   return (
     <>
-      {RouteList.map(({ component, path, exact, auth }, key) => {
+      {RouteList.map(({ component:Component, path, exact, auth }, key) => {
         
         return auth ? (
           <Route
@@ -23,8 +18,8 @@ const Routes = () => {
             path={path}
             key={key}
             render={props =>
-              false ? (
-                <component {...props} />
+              state.IsAuth ? (
+                <Component {...props} />
               ) : (
                 <Redirect
                   to={{
@@ -35,7 +30,7 @@ const Routes = () => {
               )}
           />
         ) : (
-          <Route exact={exact} path={path} component={component} key={key} />
+          <Route exact={exact} path={path} component={Component} key={key} />
           
         );
       })}
