@@ -5,6 +5,7 @@ import { AppHistory } from "../History";
 
 const Login = () => {
   const { state, dispatch } = useContext(GlobalContext);
+  console.log(state.PathHistory)
   return (
     <div>
       login is : {state.IsAuth ? "Yes" : "NO"}
@@ -13,7 +14,7 @@ const Login = () => {
         className="btn btn-success"
         onClick={() => {
           dispatch({ type: GlobalReducerTypes.IS_AUTH });
-          AppHistory.push('/');
+          AppHistory.push(state.PathHistory);
         }}
       >
         loggin

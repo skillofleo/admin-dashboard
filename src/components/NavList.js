@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { RouteList, TypeRuote } from "../Stores/AppStore";
 import { AppHistory } from "../History";
+import { GlobalContext } from "../contexts/GlobalContext";
+import { GlobalReducerTypes } from "../reducers/GlobalReducer";
 
 const NavList = () => {
+  const { dispatch } = useContext(GlobalContext);
   const navigate = (event, path) => {
     event.preventDefault();
+
+    dispatch({ type: GlobalReducerTypes.PATH_HISTORY, PathHistory: path });
     AppHistory.push(path);
   };
   return (
